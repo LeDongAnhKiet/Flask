@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone 7 Plus",
+    "description": "Apple, 32GB, RAM: 3GB, iOS13",
+    "price": 17000000,
+    "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.thegioididong.com%2Fdtdd%2Fiphone-14-pro-256gb&psig=AOvVaw38vVWmIcMV-bw-8BPF9E7t&ust=1666152135134000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCNilvcPy6PoCFQAAAAAdAAAAABAN",
+    "category_id": 1
+  },
+  {
+    "id": 2,
+    "name": "iPad Pro 2020",
+    "description": "Apple, 128GB, RAM: 6GB",
+    "price": 37000000,
+    "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.engadget.com%2Fapple-iphone-14-pro-max-review-dynamic-island-useful-always-on-display-battery-life-camera-test-sample-pictures-130020449.html&psig=AOvVaw38vVWmIcMV-bw-8BPF9E7t&ust=1666152135134000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCNilvcPy6PoCFQAAAAAdAAAAABAT
+    ",
+    "category_id": 2
+  },
+  {
+    "id": 3,
+    "name": "Galaxy Note 10 Plus",
+    "description": "Samsung, 64GB, RAML: 6GB",
+    "price": 24000000,
+    "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.viettablet.com%2Fiphone-14-pro-max-mau-sunset-gold&psig=AOvVaw38vVWmIcMV-bw-8BPF9E7t&ust=1666152135134000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCNilvcPy6PoCFQAAAAAdAAAAABAY",
+    "category_id": 2
+  }
+]
