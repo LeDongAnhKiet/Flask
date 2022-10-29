@@ -10,5 +10,8 @@ def load_products(category_id=None, kw=None):
     if category_id:
         query = query.filter(Product.category_id.__eq__(category_id))
     if kw:
-        query=query.filter(Product.name.contains(kw))
+        query = query.filter(Product.name.contains(kw))
     return query.all()
+
+def get_product_by_id(product_id):
+    return Product.query.get(product_id)

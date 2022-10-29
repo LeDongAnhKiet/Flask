@@ -9,6 +9,10 @@ def index():
                                  kw=request.args.get('keyword'))
     return render_template('index.html', categories=categories, products=products)
 
+@app.route('/products/<int:product_id>')
+def details(product_id):
+    p = dao.get_product_by_id(product_id)
+    return render_template('details.html', product=p)
 
 if __name__ == '__main__':
     app.run(debug=True)
