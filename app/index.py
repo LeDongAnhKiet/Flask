@@ -1,5 +1,5 @@
-from flask import render_template, request
-from app import app, dao
+from flask import render_template, request,redirect
+from app import app, dao, admin
 
 
 @app.route('/')
@@ -13,6 +13,15 @@ def index():
 def details(product_id):
     p = dao.get_product_by_id(product_id)
     return render_template('details.html', product=p)
+
+@app.route('/login-admin', methods=['post'])
+def login_admin():
+    username = request.form['username']
+    password = request.form['password']
+    user = dao.auth_user(username=username, password=password)
+    if user:
+        login_user(user=user)
+    return redirect('/admin')
 
 if __name__ == '__main__':
     app.run(debug=True)

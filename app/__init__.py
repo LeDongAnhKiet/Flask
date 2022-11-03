@@ -1,8 +1,13 @@
 from flask import Flask
 from urllib.parse import quote
-from flask import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
+from flask import LoginManager
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] ="mysql+pymysql://root:%@localhost/flashsaledb?charset=utf8mb4" % quote('Admin123')
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-db = SQLAlchemy(app = app)
+app.secret_key ='^%#$%BGHB5yy542@$%@%$gv4'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:%s@localhost/it02saledbv1?charset=utf8mb4' % quote('Admin@123')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
+db = SQLAlchemy(app=app)
+
+Login = LoginManager(app=app)
