@@ -39,7 +39,7 @@ class Product(BaseModel):
 
 class User(BaseModel, UserMixin):
     userid = Column(String(50), nullable=False)
-    username = Column(String(50), nullable=False)
+    username = Column(String(50), nullable=False, unique=True)
     password = Column(String(50), nullable=False)
     avatar = Column(String(50), nullable=False)
     active = Column(String(50), nullable=False)
