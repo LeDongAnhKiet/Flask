@@ -1,23 +1,24 @@
 {% extends 'Layout/base.html %}
 
 {% block content %}
+
     {% if products %}
-    {% else %}
-    <p class="text-danger">Ko có sp nào</p>
-    {% endif %}
     <div class="row">
         {% for p in products %}
         <div class="col-md-3 col-sm-12">
             <div class="card">
-                <img alt="p.name" class="card-img-top" src="{{p.image}}">
+                <img alt="p.name" class="card-img-top" src="{{ p.image }}">
                 <div class="card-body">
-                    <h4 class="card-title">{{p.name}}</h4>
-                    <p class="card-text">{{"{:,}".format(p.price)}} vnd</p>
-                    <a class="btn btn-primary" href="/products/{{p.id}}">Xem chi tiết</a>
+                    <h4 class="card-title">{{ p.name }}</h4>
+                    <p class="card-text">{{ "{:,}".format(p.price) }} VNĐ</p>
+                    <a class="btn btn-primary" href="/products/{{ p.id }}">Xem chi tiết</a>
                     <a href="#" class="btn btn-danger">Đặt hàng</a>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <p class="text-danger">Ko có sp nào</p>
+    {% endif %}
 {% endblock %}

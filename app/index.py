@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect
 from app import app, dao, admin, login
-from flask_login import login_user
+from flask_login import login_user, logout_user
+from app.decorator import annonynous_user
 import cloudinary.uploader
 
 
@@ -28,15 +29,23 @@ def login_admin():
 
 
 @app.route('/login', methods=['get', 'post'])
+@annonynous_user
 def user_login():
     if request.method == 'POST':
-        name = request.form['name']
+        username = request.form['username']
         password = request.form['password']
-        user = dao.auth_user(username=username,password=password)
+        user = dao.auth_user(username=username, password=password)
         if user:
             login_user(user=user)
             return redirect('/')
     return render_template('login.html')
+
+
+@app.route('/logout')
+def user_logout():
+    logout_user()
+    return redirect('/login')
+
 
 @app.route('/register', methods=['get', 'post'])
 def register():
@@ -52,13 +61,14 @@ def register():
                 avatar = res['secure_url']
             try:
                 dao.register(name=request.form['name'],
-                         password=password,
-                         username=request.form['username'], avatar=avatar)
+                             password=password,
+                             username=request.form['username'], avatar=avatar)
                 return redirect('/login')
             except:
                 err_msg = 'Lỗi! Hãy quay lại sau.'
-        else: err_msg = 'Mật khẩu KHÔNG khớp!'
-    return render_template('register.html')
+        else:
+            err_msg = 'Mật khẩu KHÔNG khớp!'
+    return render_template('register.html', err_msg=err_msg)
 
 
 @login.user_loader
@@ -72,6 +82,7 @@ def common_attr():
     return {
         'categories': categories
     }
+
 
 if __name__ == '__main__':
     app.run(debug=True)
