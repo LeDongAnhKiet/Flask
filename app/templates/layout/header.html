@@ -17,7 +17,8 @@
                 {% if current_user.is _authenticated %}
                 <li class="nav-item">
                     <a class="nav-link text_success" href="/login">
-                        <img src="{{ current_user.avatar }}" width="40" class="rounded_circle" alt="{{ current_user.name }}" />
+                        <img alt="{{ current_user.name }}" class="rounded_circle" src="{{ current_user.avatar }}"
+                             width="40"/>
                         Chào {{ current_user.name }}
                     </a>
                 </li>
@@ -32,6 +33,10 @@
                     <a class="nav-link text_danger" href="/register">Đăng ký</a>
                 </li>
                 {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link text_secondary" href="/cart">&#128722; Giỏ hàng
+                        <span class="badge bg-danger cart-counter">0</span></a>
+                </li>
             </ul>
             <form action="/" class="d-flex">
                 <input class="form-control me-2" name="keyword" placeholder="Nhập từ khóa..." type="text">

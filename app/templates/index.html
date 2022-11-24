@@ -12,7 +12,7 @@
                     <h4 class="card-title">{{ p.name }}</h4>
                     <p class="card-text">{{ "{:,}".format(p.price) }} VNĐ</p>
                     <a class="btn btn-primary" href="/products/{{ p.id }}">Xem chi tiết</a>
-                    <a href="#" class="btn btn-danger">Đặt hàng</a>
+                    <a href="javascript:;" onclick="add2Cart( {{p.id}}, '{{p.name}}', {{p.price}} )" class="btn btn-danger">Đặt hàng</a>
                 </div>
             </div>
         </div>
