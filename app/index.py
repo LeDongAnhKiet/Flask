@@ -37,7 +37,8 @@ def user_login():
         user = dao.auth_user(username=username, password=password)
         if user:
             login_user(user=user)
-            return redirect('/')
+            n = request.args.get('next')
+            return redirect(n if n else '/')
     return render_template('login.html')
 
 
@@ -111,6 +112,26 @@ def add_2_cart():
     return jsonify(utils.cart_stats(cart))
 
 
+@app.route('/api/cart/<product_id>', methods=['put'])
+def update_cart(product_id):
+    key = app.config['CART_KEY']
+    cart = session.get(key)
+    if cart and product_id in cart:
+        cart[product_id]['quantity'] = int(request.json['quantity'])
+    session[key] = cart
+    return jsonify(utils.cart_stats(cart))
+
+
+@app.route('/api/cart/<product_id>', methods=['delete'])
+def del_cart(product_id):
+    key = app.config['CART_KEY']
+    cart = session.get(key)
+    if cart and product_id in cart:
+        del cart[product_id]
+    session[key] = cart
+    return jsonify(utils.cart_stats(cart))
+
+
 @login.user_loader
 def load_user(user_id):
     return dao.get_user_by_id(user_id)
@@ -120,7 +141,8 @@ def load_user(user_id):
 def common_attr():
     categories = dao.load_categories()
     return {
-        'categories': categories
+        'categories': categories,
+        'cart': utils.cart_stats(session.get(app.config['CART_KEY']))
     }
 
 

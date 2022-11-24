@@ -1,8 +1,9 @@
-from sqlalchemy import Column, Integer, String, Float, Boolean, Text, ForeignKey, Enum
+from sqlalchemy import Column, Integer, String, Float, Boolean, Text, ForeignKey, Enum, DateTime
 from app import db, app
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from enum import Enum as UserEnum
 from flask_login import UserMixin
+from datetime import datetime
 
 
 class UserRole(UserEnum):
@@ -24,6 +25,11 @@ class Category(BaseModel):
         return self.name
 
 
+prod_tag = db.Table('prod_tag',
+                    Column('product_id', ForeignKey('product.id'), nullable=False, primary_key=True),
+                    Column('tag_id', ForeignKey('tag.id'), nullable=False, primary_key=True))
+
+
 class Product(BaseModel):
     __tablename__ = "product"
     name = Column(String(50), nullable=False)
@@ -32,9 +38,15 @@ class Product(BaseModel):
     active = Column(Boolean, default=True)
     price = Column(Float, default=0)
     category_id = Column(Integer, ForeignKey(Category.id), nullable=False)
+    tags = relationship('Tag', secondary='prod_tag', lazy='subquery',
+                        backref=backref('products', lazy=True))
 
     def __str__(self):
         return self.name
+
+
+class Tag(BaseModel):
+    name = Column(String(50), nullable=False, uniquc=True)
 
 
 class User(BaseModel, UserMixin):
@@ -46,7 +58,12 @@ class User(BaseModel, UserMixin):
     user_role = Column(Enum(UserRole), default=UserRole.USER)
 
     def __str__(self):
-        return self.userid
+        return self.name
+
+
+class Receipt(BaseModel):
+    created_date = Column(DateTime, default=datetime.now())
+    user_id = Column(Integer, ForeignKey(User.id), nullable=False)
 
 
 if __name__ == '__main__':
