@@ -132,6 +132,17 @@ def del_cart(product_id):
     return jsonify(utils.cart_stats(cart))
 
 
+@app.route('/pay')
+def pay():
+    key = app.config['CART_KEY']
+    cart = session.get(key)
+    if dao.add_receipt(cart=cart):
+        del session[key]
+    else:
+        return jsonify({'status': 500})
+    return jsonify({'status': 200})
+
+
 @login.user_loader
 def load_user(user_id):
     return dao.get_user_by_id(user_id)

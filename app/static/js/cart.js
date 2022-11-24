@@ -1,4 +1,4 @@
-function add2Cart(id, name, price){
+function add2Cart(id, name, price) {
     fetch('/api/cart', {
         method: "post",
         body: JSON.stringify({
@@ -16,7 +16,7 @@ function add2Cart(id, name, price){
             d[i].innerText = data.total_quantity
     })
 }
-function updateCart(productId, obj){
+function updateCart(productId, obj) {
 fetch('/api/cart/${ productId }', {
         method: "put",
         body: JSON.stringify({
@@ -34,7 +34,7 @@ fetch('/api/cart/${ productId }', {
             a[i].innerText = data.total_amount.toLocaleString("en-US")
     }).catch(err => console.error(err))
 }
-function delCart(productId, obj){
+function delCart(productId, obj) {
     if (confirm("Chắc xóa ko!") == true){
         fetch('/api/cart/${ productId }',{
         method: "delete"
@@ -48,5 +48,13 @@ function delCart(productId, obj){
         let e = document.getElementById('cart${productId}')
         e.style.display = "none"
     }).catch(err => console.error(err))
+    }
+}
+function pay() {
+    if (confirm("Chắc thanh toán ko?")) {
+        fetch("/pay").then(res => res.json()).then(data => {
+            if (data.status === 200)
+                location.reload()
+        })
     }
 }
