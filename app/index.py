@@ -95,7 +95,7 @@ def cart():
 def add_2_cart():
     data = request.json
     key = app.config['CART_KEY']
-    cart = session[key] if  key in session else {}
+    cart = session[key] if key in session else {}
     id = str(data['id'])
     name = data('name')
     price = data['price']

@@ -1,6 +1,7 @@
 from app.models import Category, Product, User, Receipt, ReceiptDetails
 from app import db
 from flask_login import current_user
+from sqlalchemy import func
 import hashlib
 
 
@@ -52,3 +53,9 @@ def add_receipt(cart):
             return False
         else:
             return True
+
+
+def count_product_by_cate():
+    return db.session.query(Category.id, Category.name, func.count(Product.id)) \
+        .join(Product, Product.category_id.__eq__(Category.id), isouter=True) \
+        .group_by(Category.id).order_by(Category.name).all()
