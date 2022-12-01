@@ -59,3 +59,20 @@ def count_product_by_cate():
     return db.session.query(Category.id, Category.name, func.count(Product.id)) \
         .join(Product, Product.category_id.__eq__(Category.id), isouter=True) \
         .group_by(Category.id).order_by(Category.name).all()
+
+
+def stats_revenue_by_prod(kw=None, from_date=None, to_date=None):
+    query = db.session.query(Product.id, Product.name, func.sum(ReceiptDetails.quantity * ReceiptDetails.product_id)) \
+        .join(ReceiptDetails, ReceiptDetails.product_id.__eq__(Product.id)) \
+        .join(Receipt, ReceiptDetails.receipt_id.__eq__(Receipt.id))
+    if kw:
+        query = query.filter(Product.name.contains(kw))
+    if to_date:
+        query = query.filter(Receipt.created_date.__le__(to_date))
+    return query.group_by(Product.id).all()
+
+
+if __name__ == '__main__':
+    from app import app
+    with app.app_context():
+        print(count_product_by_cate())

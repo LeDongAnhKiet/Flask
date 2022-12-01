@@ -2,7 +2,7 @@ from app import db, app, dao
 from app.models import Category, Product, UserRole, Tag
 from flask_admin import Admin, BaseView, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
-from flask import redirect
+from flask import redirect, request
 from flask_login import logout_user, current_user
 from wtforms import TextAreaField
 from wtforms.widgets import TextArea
@@ -53,7 +53,10 @@ class ProductView(ModelView):
 class StatsView(AuthenticatedView):
     @expose('/')
     def index(self):
-        return self.render('admin/tkbc.html')
+        stats = dao.stats_revenue_by_prod(kw=request.args.get('kw'),
+                                          from_date=request.args.get('from_date'),
+                                          to_date=request.args.get('to_date'))
+        return self.render('admin/tkbc.html', stats=stats)
 
 
 class LogoutView(AuthenticatedView):
