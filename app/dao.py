@@ -67,6 +67,8 @@ def stats_revenue_by_prod(kw=None, from_date=None, to_date=None):
         .join(Receipt, ReceiptDetails.receipt_id.__eq__(Receipt.id))
     if kw:
         query = query.filter(Product.name.contains(kw))
+    if from_date:
+        query = query.filter(Receipt.created_date.__ge__(from_date))
     if to_date:
         query = query.filter(Receipt.created_date.__le__(to_date))
     return query.group_by(Product.id).all()

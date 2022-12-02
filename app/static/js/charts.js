@@ -22,6 +22,8 @@ function CateStats(labels, data) {
 }
 function RevStats(labels, data) {
     const ctx = document.getElementById('revStats');
+    const rndNum = () => Math.floor(Math.random() * (255 - 50 + 1) + 50);
+    const rndRGBA = () => `rgba(${rndNum()}, ${rndNum()}, ${rndNum()}, 0.7)`;
     new Chart (ctx, {
         type: 'bar',
         data: {
@@ -30,9 +32,8 @@ function RevStats(labels, data) {
                 label: 'Doanh thu',
                 data: data,
                 borderWidth: 1
-                backgroundColor: ['red', 'blue', 'green', 'orange', 'rgba(200, 100, 50, 0.5)']
+                backgroundColor: ['red', 'blue', 'green', 'rndRGBA()', 'rndRGBA()']
             }]
-
         },
         option: {
             scale: {
