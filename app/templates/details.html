@@ -16,4 +16,27 @@
             {% endfor %}
         </div>
     </div>
+<hr>
+
+<div>
+    <div class="form-group">
+    <textarea class="form-control" placeholder="Nội dung"></textarea>
+    </div>
+    <div class="mt-2">
+        <input type="button" value="Thêm" class="btn btn-info" />
+    </div>
+</div>
+<div class="spinner-grow text-success mt-2"></div>
+<ul class="list-group mt-2" id="comments">
+
+</ul>
+{% endblock %}
+
+{% block js %}
+<script src="'{{ url_for('static', filename='js/details.js') }}"></script>
+<script>
+    window.onload = () {
+        loadComments({{ product.id }})
+    }
+</script>
 {% endblock %}

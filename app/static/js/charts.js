@@ -11,8 +11,8 @@ function CateStats(labels, data) {
             }]
 
         },
-        option: {
-            scale: {
+        options: {
+            scales: {
                 y: {
                     beginAtZero: true
                 }
@@ -22,8 +22,8 @@ function CateStats(labels, data) {
 }
 function RevStats(labels, data) {
     const ctx = document.getElementById('revStats');
-    const rndNum = () => Math.floor(Math.random() * (255 - 50 + 1) + 50);
-    const rndRGBA = () => `rgba(${rndNum()}, ${rndNum()}, ${rndNum()}, 0.7)`;
+//    const rndNum = () => Math.floor(Math.random() * (255 - 50 + 1) + 50);
+//    const rndRGBA = () => `rgba(${rndNum()}, ${rndNum()}, ${rndNum()}, 0.7)`;
     new Chart (ctx, {
         type: 'bar',
         data: {
@@ -31,12 +31,12 @@ function RevStats(labels, data) {
             datasets: [{
                 label: 'Doanh thu',
                 data: data,
-                borderWidth: 1
-                backgroundColor: ['red', 'blue', 'green', 'rndRGBA()', 'rndRGBA()']
+                borderWidth: 1,
+                backgroundColor: ['red', 'blue', 'green']
             }]
         },
-        option: {
-            scale: {
+        options: {
+            scales: {
                 y: {
                     beginAtZero: true
                 }

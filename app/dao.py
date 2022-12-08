@@ -1,4 +1,4 @@
-from app.models import Category, Product, User, Receipt, ReceiptDetails
+from app.models import Category, Product, User, Receipt, ReceiptDetails, Comment
 from app import db
 from flask_login import current_user
 from sqlalchemy import func
@@ -72,6 +72,16 @@ def stats_revenue_by_prod(kw=None, from_date=None, to_date=None):
     if to_date:
         query = query.filter(Receipt.created_date.__le__(to_date))
     return query.group_by(Product.id).all()
+
+
+def load_comments(product_id):
+    return Comment.query.filter(Comment.product_id.__eq__(product_id)).order_by(-Comment.id).all()
+
+
+def save_comments(content, product_id):
+    c = Comment(content=content, product_id=product_id, user=current_user)
+    db.session.add(c)
+    db.session.commit()
 
 
 if __name__ == '__main__':
